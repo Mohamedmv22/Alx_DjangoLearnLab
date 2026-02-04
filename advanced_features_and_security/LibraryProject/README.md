@@ -51,3 +51,11 @@ Test users were created and assigned to groups to verify access control:
 - Editor: can view, create, and edit books
 - Admin: full access including delete
 
+## Security Practices
+
+- DEBUG disabled
+- CSRF protection enabled using {% csrf_token %}
+- Secure cookies enabled
+- XSS, clickjacking, and MIME sniffing protections enabled
+- Django ORM used to prevent SQL injection
+- Basic Content Security Policy applied
