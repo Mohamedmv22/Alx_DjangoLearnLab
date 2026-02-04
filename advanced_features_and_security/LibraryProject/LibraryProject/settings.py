@@ -120,3 +120,9 @@ STATIC_URL = 'static/'
 # Authentication settings
 LOGIN_REDIRECT_URL = '/relationship/books/'
 LOGOUT_REDIRECT_URL = '/relationship/login/'
+# Custom User Model
+AUTH_USER_MODEL = 'bookshelf.CustomUser'
+
+# Media files (for profile photos)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
