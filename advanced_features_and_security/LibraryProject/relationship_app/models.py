@@ -18,9 +18,10 @@ class Book(models.Model):
 
     class Meta:
         permissions = [
-            ('can_add_book', 'Can add book'),
-            ('can_change_book', 'Can change book'),
-            ('can_delete_book', 'Can delete book'),
+            ("can_view", "Can view book"),
+            ("can_create", "Can create book"),
+            ("can_edit", "Can edit book"),
+            ("can_delete", "Can delete book"),
         ]
 
     def __str__(self):
@@ -29,7 +30,7 @@ class Book(models.Model):
 
 class Library(models.Model):
     name = models.CharField(max_length=200)
-    books = models.ManyToManyField(Book, related_name='libraries')
+    books = models.ManyToManyField('relationship_app.Book', related_name='libraries')
 
     def __str__(self):
         return self.name
@@ -49,10 +50,10 @@ class UserProfile(models.Model):
         ('Librarian', 'Librarian'),
         ('Member', 'Member'),
     ]
-    
+
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='Member')
-    
+
     def __str__(self):
         return f"{self.user.username} - {self.role}"
 
