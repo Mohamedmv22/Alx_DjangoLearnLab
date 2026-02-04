@@ -59,3 +59,44 @@ Test users were created and assigned to groups to verify access control:
 - XSS, clickjacking, and MIME sniffing protections enabled
 - Django ORM used to prevent SQL injection
 - Basic Content Security Policy applied
+
+
+## HTTPS and Secure Redirects
+
+The application is configured to enforce HTTPS using Django security settings.
+
+Implemented settings:
+
+- SECURE_SSL_REDIRECT = True (redirects all HTTP traffic to HTTPS)
+- SECURE_HSTS_SECONDS = 31536000
+- SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+- SECURE_HSTS_PRELOAD = True
+
+Secure cookies:
+
+- SESSION_COOKIE_SECURE = True
+- CSRF_COOKIE_SECURE = True
+
+Security headers:
+
+- X_FRAME_OPTIONS = "DENY"
+- SECURE_CONTENT_TYPE_NOSNIFF = True
+- SECURE_BROWSER_XSS_FILTER = True
+
+### Deployment Notes
+
+In production, HTTPS should be enabled using SSL/TLS certificates configured at the web server level (e.g., Nginx or Apache). Certificates can be provided by services such as Let's Encrypt.
+
+All HTTP traffic is redirected to HTTPS by Django using SECURE_SSL_REDIRECT.
+
+## Security Review
+
+These settings protect against:
+
+- Man-in-the-middle attacks (HTTPS + HSTS)
+- Clickjacking (X_FRAME_OPTIONS)
+- XSS attacks (SECURE_BROWSER_XSS_FILTER)
+- MIME sniffing (SECURE_CONTENT_TYPE_NOSNIFF)
+- Cookie hijacking (secure cookies)
+
+Further improvements may include using django-csp and regular security audits.
